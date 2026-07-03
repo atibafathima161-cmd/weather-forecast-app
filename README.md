@@ -22,6 +22,9 @@ A Flask-based weather application using OpenWeather API.
 ```bash
 pip install -r requirements.txt
 python app.py
+```
+
+
 ## 📸 Screenshots
 
 ### 🏠 Home Page
