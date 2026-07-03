@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% if weather %}{{ weather.main|lower }}{% endif %}">
+
+<div class="container">
+
+    <button id="theme-toggle">🌙 Dark Mode</button>
+
+    <h1>🌦 Weather Forecast</h1>
+
+    <p class="date">{{ current_date }}</p>
+    <p class="time">{{ current_time }}</p>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="city"
+            placeholder="Enter City Name"
+            required>
+
+        <button type="submit">Search</button>
+
+    </form>
+
+    {% if weather %}
+
+    <div class="weather-card">
+
+        <h2>{{ weather.city }}, {{ weather.country }}</h2>
+
+        <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png">
+
+        <h3>{{ weather.description }}</h3>
+
+        <div class="weather-details">
+
+            <div class="detail-box">
+                <h4>🌡 Temperature</h4>
+                <p>{{ "%.1f"|format(weather.temperature) }}°C</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>🤗 Feels Like</h4>
+                <p>{{ "%.1f"|format(weather.feels_like) }}°C</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>💧 Humidity</h4>
+                <p>{{ weather.humidity }}%</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>💨 Wind</h4>
+                <p>{{ weather.wind }} m/s</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>📈 Pressure</h4>
+                <p>{{ weather.pressure }} hPa</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>👀 Visibility</h4>
+                <p>{{ weather.visibility }} km</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>🌅 Sunrise</h4>
+                <p>{{ weather.sunrise }}</p>
+            </div>
+
+            <div class="detail-box">
+                <h4>🌇 Sunset</h4>
+                <p>{{ weather.sunset }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <footer>
+        Made with ❤️ by Atiba Fatima
+    </footer>
+
+</div>
+
+<script>
+
+const toggle=document.getElementById("theme-toggle");
+
+toggle.onclick=function(){
+
+document.body.classList.toggle("dark");
+
+};
+
+</script>
+
+</body>
+</html>
